@@ -53,7 +53,7 @@ def print_header
   puts '------------'.center(85)
 end
 
-def print(students)
+def print_students(students)
   students.each.with_index do |student, i|
     puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort) (#{student[:nationality]})".center(85)
   end
@@ -72,7 +72,7 @@ end
 
 students = input_students
 print_header
-print(students)
+print_students(students)
 print_footer(students)
 
 
