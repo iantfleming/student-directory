@@ -1,4 +1,5 @@
 @students = []
+require 'csv'
 
 def push_to_array(name, cohort)
   @students << {name: name, cohort: :november}
@@ -69,11 +70,31 @@ def process(selection)
       selection_success("2")
       show_students
     when "3"
-      selection_success("3")
-      save_students
+      puts 'Please enter the name of the file you wish to save to'
+      file = STDIN.gets.chomp
+      loop do
+        if file == 'students.csv'
+          selection_success("3")
+          save_students
+          break
+        else 
+          puts 'Please enter file name'
+          file = STDIN.gets.chomp
+        end
+      end
     when "4"
-      selection_success("4")
-      load_students
+      puts 'Please enter the name of the file you wish to load'
+      file = STDIN.gets.chomp      
+      loop do
+        if file == 'students.csv'
+          selection_success("4")
+          load_students
+          break
+        else
+          puts 'Please enter the name of the file you wish to load'
+          file = STDIN.gets.chomp
+        end
+      end
     when "9"
       selection_success("9")
       exit
@@ -89,19 +110,19 @@ def selection_success(num)
   end
 end
 
-def save_students
-  file = File.open("students.csv", "w")
-  @students.each do |student|
-    student_data = [student[:name], student [:cohort]]
-    csv_line = student_data.join(", ")
-    file.puts csv_line
+def save_students(filename = "students.csv")
+  CSV.open(filename, "w") do |line|
+    @students.each do |student|
+      student_data = [student[:name], student [:cohort]]
+      csv_line = student_data.join(", ")
+      file.puts csv_line
+    end
+    if @students.count > 1
+      puts "#{@students.count} students have been saved to students.csv."
+    else 
+      puts "#{@students.count} student has been saved to students.csv."
+    end
   end
-  if @students.count > 1
-    puts "#{@students.count} students have been saved to students.csv."
-  else 
-    puts "#{@students.count} student has been saved to students.csv."
-  end
-  file.close
 end
 
 def load_students(filename = "students.csv")
