@@ -1,11 +1,16 @@
 @students = []
 
+def push_to_array(name, cohort)
+  @students << {name: name, cohort: :november}
+end
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   name = STDIN.gets.chomp
   while !name.empty? do
-    @students << {name: name, cohort: :november}
+    cohort = nil
+    push_to_array(name, cohort)
     if @students.count > 1
       puts "Now we have #{@students.count} students"
     else
@@ -103,7 +108,7 @@ def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(', ')
-    @students << {name: name, cohort: cohort.to_sym}
+    push_to_array(name, cohort)
   end
   if @students.count > 1
     puts "Loaded #{@students.count} students from students.csv."
