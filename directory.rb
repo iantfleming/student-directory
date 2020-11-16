@@ -1,13 +1,9 @@
 @students = []
 
-
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-    
-    
   name = STDIN.gets.chomp
-    
   while !name.empty? do
     @students << {name: name, cohort: :november}
     puts "Now we have #{@students.count} students"
@@ -54,17 +50,29 @@ end
 def process(selection)
   case selection
     when "1"
+      selection_success("1")
       input_students
     when "2"
+      selection_success("2")
       show_students
     when "3"
+      selection_success("3")
       save_students
     when "4"
+      selection_success("4")
       load_students
     when "9"
+      selection_success("9")
       exit
     else
       puts "I don't know what you mean, try again"
+  end
+end
+
+def selection_success(num)
+  puts "You have chosen #{num}!"
+  if num.to_i == 9
+    puts 'You quit'
   end
 end
 
