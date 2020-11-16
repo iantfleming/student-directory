@@ -83,18 +83,8 @@ def process(selection)
         end
       end
     when "4"
-      puts 'Please enter the name of the file you wish to load'
-      file = STDIN.gets.chomp      
-      loop do
-        if file == 'students.csv'
-          selection_success("4")
-          load_students
-          break
-        else
-          puts 'Please enter the name of the file you wish to load'
-          file = STDIN.gets.chomp
-        end
-      end
+      selection_success("4")
+      load_students
     when "9"
       selection_success("9")
       exit
@@ -113,9 +103,7 @@ end
 def save_students(filename = "students.csv")
   CSV.open(filename, "w") do |line|
     @students.each do |student|
-      student_data = [student[:name], student [:cohort]]
-      csv_line = student_data.join(", ")
-      file.puts csv_line
+      line << [student[:name], student[:cohort]]
     end
     if @students.count > 1
       puts "#{@students.count} students have been saved to students.csv."
@@ -126,9 +114,10 @@ def save_students(filename = "students.csv")
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(', ')
+  puts 'Please enter your files name'
+  filename = STDIN.gets.chomp
+  File.foreach(filename) do |line|
+    name, cohort = line.chomp.split(',')
     push_to_array(name, cohort)
   end
   if @students.count > 1
@@ -136,7 +125,6 @@ def load_students(filename = "students.csv")
   else 
     puts "Loaded #{@students.count} student from students.csv."
   end
-  file.close
 end
 
 def try_load_students
