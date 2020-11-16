@@ -75,6 +75,11 @@ def save_students
     csv_line = student_data.join(", ")
     file.puts csv_line
   end
+  if @students.count > 1
+    puts "#{@students.count} students have been saved to students.csv."
+  else 
+    puts "#{@students.count} student has been saved to students.csv."
+  end
   file.close
 end
 
@@ -83,6 +88,11 @@ def load_students(filename = "students.csv")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(', ')
     @students << {name: name, cohort: cohort.to_sym}
+  end
+  if @students.count > 1
+    puts "Loaded #{@students.count} students from students.csv."
+  else 
+    puts "Loaded #{@students.count} student from students.csv."
   end
   file.close
 end
