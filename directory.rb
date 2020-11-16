@@ -6,7 +6,11 @@ def input_students
   name = STDIN.gets.chomp
   while !name.empty? do
     @students << {name: name, cohort: :november}
-    puts "Now we have #{@students.count} students"
+    if @students.count > 1
+      puts "Now we have #{@students.count} students"
+    else
+      puts "Now we have #{@students.count} student"
+    end
     name = STDIN.gets.chomp
   end
 end
@@ -23,7 +27,11 @@ def print_student_list
 end
 
 def print_footer
-  puts "Overall, we have #{@students.count} great students"
+  if @students.count > 1
+    puts "Overall, we have #{@students.count} great students"
+  else 
+    puts"Overall, we have #{@students.count} great student"
+  end
 end
 
 def print_menu
