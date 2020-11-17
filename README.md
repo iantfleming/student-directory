@@ -7,3 +7,6 @@ The student directory script allows you to manage the list of students enrolled 
 ```shell
 ruby directory.rb
 ```
+## Getting Staarted
+
+Get started with this project by cloning the path and adding to your command line, using 'git clone'
